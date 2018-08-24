@@ -16,5 +16,6 @@ if ((typeof PLATFORM_BROWSER !== 'undefined') && PLATFORM_BROWSER) {
         Transport      : require('./imp/platform/node/transport_httpjson.js'),
         thrift         : require('thrift'),
         crouton_thrift : require('./imp/platform/node/crouton_thrift.js'),
+        lambda_proxy: require('./imp/platform/node/transport_httpjson.js')
     };
 }
