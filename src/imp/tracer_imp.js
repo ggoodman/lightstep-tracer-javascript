@@ -947,7 +947,7 @@ export default class Tracer extends opentracing.Tracer {
             });
         };
 
-        const delay = Math.floor(Math.random() * this._options.delay_initial_report_millis);
+        const delay = this._options.delay_initial_report_millis;
         util.detachedTimeout(() => {
             loop();
         }, delay);
@@ -986,7 +986,7 @@ export default class Tracer extends opentracing.Tracer {
         let backOff = 1 + Math.min(7, Math.max(0, this._reportErrorStreak));
         let basis = backOff * reportInterval;
         let jitter = 1.0 + (Math.random() * 0.5 - 0.25);
-        let delay = Math.floor(Math.max(0, jitter * basis));
+        let delay = 0
 
         this._debug(`Delaying next flush for ${delay}ms`);
         this._reportTimer = util.detachedTimeout(() => {
@@ -1011,7 +1011,7 @@ export default class Tracer extends opentracing.Tracer {
     _flushReport(manual, detached, done) {
         done = done || function (err) {};
 
-        let clockReady = this._clockState.isReady();
+        let clockReady = true;
         let clockOffsetMicros = this._clockState.offsetMicros();
 
         // Diagnostic information on the clock correction
